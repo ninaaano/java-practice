@@ -7,6 +7,7 @@ public class Junit4Test {
     }
 
     @MyTest
+    @getTime
     public void two() throws Exception {
         System.out.println("Running Test2");
     }

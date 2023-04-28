@@ -68,4 +68,24 @@ public class ReflectionTest {
         User nino = constructor.newInstance("nino", 33);
         logger.debug("이름 = {}, 나이 = {}",nino.getName(),nino.getAge());
     }
+
+    @Test
+    public void methodTimer() throws Exception {
+        Class<Junit4Test> clazz = Junit4Test.class;
+
+        Junit4Test junit4Test = clazz.getDeclaredConstructor().newInstance();
+        Method[] methods = clazz.getDeclaredMethods();
+        Arrays.stream(methods)
+                .filter(m -> m.isAnnotationPresent(getTime.class))
+                .forEach(m -> {
+                    try {
+                        long before = System.currentTimeMillis();
+                        Thread.sleep(1000);
+                        m.invoke(junit4Test);
+                        logger.debug("method running time = {}ms", System.currentTimeMillis() - before);
+                    } catch (IllegalAccessException | InterruptedException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+    }
 }
