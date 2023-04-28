@@ -13,5 +13,5 @@
   - 구현은 src/test/java > next.reflection > Junit4TestRunner 클래스의 run() 메소드에 한다.
 
 ## 요구사항 4 - private field에 값 할당
-- [ ] 자바 Reflection API를 활용해 다음 Student 클래스의 name과 age 필드에 값을 할당한 후 getter 메소드를 통해 값을 확인한다.
+- [x] 자바 Reflection API를 활용해 다음 Student 클래스의 name과 age 필드에 값을 할당한 후 getter 메소드를 통해 값을 확인한다.
   - 구현은 src/test/java > next.reflection > ReflectionTest 클래스의 privateFieldAccess() 메소드에 한다.
