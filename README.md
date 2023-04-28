@@ -20,5 +20,5 @@
 - [x] User 클래스의 인스턴스를 자바 Reflection API를 활용해 User 인스턴스를 생성한다.
 
 ## 추가요구사항 1 - 메소드 실행시간 측정하는 어노테이션을 만들자
-- [ ] ex) `@getTime` -> 5초
+- [x] ex) `@getTime` -> 5초
   - 구현은 `src/test/java` > `next.reflection` > `ReflectionTest` 에 한다. 
