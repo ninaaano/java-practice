@@ -1,9 +1,6 @@
 package next.reflection;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -20,14 +17,14 @@ public class ReflectionTest {
         Constructor[] constructors = clazz.getDeclaredConstructors();
         Field[] fields = clazz.getDeclaredFields();
         Method[] methods = clazz.getDeclaredMethods();
-        for (Constructor c:constructors) {
-            logger.debug("constructor = {} " , c.getName());
+        for (Constructor c : constructors) {
+            logger.debug("constructor = {} ", c.getName());
         }
-        for (Field f:fields) {
-            logger.debug("field = {}" , f.getName());
+        for (Field f : fields) {
+            logger.debug("field = {}", f.getName());
         }
-        for (Method m:methods) {
-            logger.debug("methods = {}",m.getName());
+        for (Method m : methods) {
+            logger.debug("methods = {}", m.getName());
         }
     }
 
@@ -66,7 +63,7 @@ public class ReflectionTest {
         Class<User> clazz = User.class;
         Constructor<User> constructor = clazz.getDeclaredConstructor(String.class, Integer.class);
         User nino = constructor.newInstance("nino", 33);
-        logger.debug("이름 = {}, 나이 = {}",nino.getName(),nino.getAge());
+        logger.debug("이름 = {}, 나이 = {}", nino.getName(), nino.getAge());
     }
 
     @Test
@@ -84,6 +81,43 @@ public class ReflectionTest {
                         m.invoke(junit4Test);
                         logger.debug("method running time = {}ms", System.currentTimeMillis() - before);
                     } catch (IllegalAccessException | InterruptedException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+    }
+
+    @Test
+    public void privateMethodTest_전체테스트() {
+        Class<PrivateMethodTest> clazz = PrivateMethodTest.class;
+        PrivateMethodTest privateMethodTest = new PrivateMethodTest();
+        Method[] methods = clazz.getDeclaredMethods();
+        Arrays.stream(methods).forEach(m -> {
+            try {
+                m.setAccessible(true);
+                m.invoke(privateMethodTest);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    @Test
+    public void privateMethodTest_부분테스트() {
+        Class<PrivateMethodTest> clazz = PrivateMethodTest.class;
+        PrivateMethodTest privateMethodTest = new PrivateMethodTest();
+        Method[] methods = clazz.getDeclaredMethods();
+        Arrays.stream(methods)
+                .filter(n -> Modifier.isPrivate(n.getModifiers()))
+                .forEach(m -> {
+                    try {
+                        logger.debug("m = {}", m.getName());
+                        m.setAccessible(true);
+                        m.invoke(privateMethodTest);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvocationTargetException e) {
                         throw new RuntimeException(e);
                     }
                 });

@@ -24,4 +24,4 @@
   - 구현은 `src/test/java` > `next.reflection` > `ReflectionTest` 에 한다. 
 
 ## 추가요구사항 2 - private method 테스트
-- [] private 메소드 테스트하기
+- [x] private 메소드 테스트하기
