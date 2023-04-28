@@ -1,6 +1,8 @@
 package next.reflection;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -13,6 +15,18 @@ public class ReflectionTest {
     public void showClass() {
         Class<Question> clazz = Question.class;
         logger.debug(clazz.getName());
+        Constructor[] constructors = clazz.getDeclaredConstructors();
+        Field[] fields = clazz.getDeclaredFields();
+        Method[] methods = clazz.getDeclaredMethods();
+        for (Constructor c:constructors) {
+            logger.debug("constructor = {} " , c.getName());
+        }
+        for (Field f:fields) {
+            logger.debug("field = {}" , f.getName());
+        }
+        for (Method m:methods) {
+            logger.debug("methods = {}",m.getName());
+        }
     }
 
     @Test
