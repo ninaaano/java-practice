@@ -22,3 +22,6 @@
 ## 추가요구사항 1 - 메소드 실행시간 측정하는 어노테이션을 만들자
 - [x] ex) `@getTime` -> 5초
   - 구현은 `src/test/java` > `next.reflection` > `ReflectionTest` 에 한다. 
+
+## 추가요구사항 2 - private method 테스트
+- [] private 메소드 테스트하기
