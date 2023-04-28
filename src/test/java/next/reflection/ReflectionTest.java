@@ -2,7 +2,9 @@ package next.reflection;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -57,5 +59,13 @@ public class ReflectionTest {
         logger.debug("name = {}, age = {}", student.getName(), student.getAge());
 
         clazz.getDeclaredMethods();
+    }
+
+    @Test
+    public void parameterConstructor() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Class<User> clazz = User.class;
+        Constructor<User> constructor = clazz.getDeclaredConstructor(String.class, Integer.class);
+        User nino = constructor.newInstance("nino", 33);
+        logger.debug("이름 = {}, 나이 = {}",nino.getName(),nino.getAge());
     }
 }
